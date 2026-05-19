@@ -1,0 +1,1153 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Калорийн Тооцоолуур</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f0eb;
+    --card: #ffffff;
+    --accent: #e85d26;
+    --accent2: #f4a261;
+    --accent3: #2a9d8f;
+    --text: #1a1a2e;
+    --muted: #7c6f64;
+    --border: #e8ddd4;
+    --green: #2a9d8f;
+    --red: #e63946;
+    --shadow: 0 8px 32px rgba(0,0,0,0.08);
+    --shadow-hover: 0 16px 48px rgba(0,0,0,0.14);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    min-height: 100vh;
+    color: var(--text);
+    background-image: radial-gradient(circle at 20% 20%, rgba(232,93,38,0.06) 0%, transparent 50%),
+                      radial-gradient(circle at 80% 80%, rgba(42,157,143,0.06) 0%, transparent 50%);
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--accent);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 180px; height: 180px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 50%;
+  }
+
+  header::after {
+    content: '';
+    position: absolute;
+    bottom: -30px; left: 10%;
+    width: 120px; height: 120px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 50%;
+  }
+
+  .header-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 28px 24px 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .header-top {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 4px;
+  }
+
+  .logo-icon {
+    font-size: 2.2rem;
+    line-height: 1;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+  }
+
+  h1 {
+    font-size: 1.7rem;
+    font-weight: 900;
+    color: #fff;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  .header-sub {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.75);
+    font-weight: 400;
+    margin-left: 52px;
+  }
+
+  /* ── MAIN LAYOUT ── */
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 28px 16px 60px;
+    display: grid;
+    gap: 20px;
+  }
+
+  /* ── SECTION CARD ── */
+  .card {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 24px;
+    box-shadow: var(--shadow);
+    border: 1px solid var(--border);
+    animation: slideUp 0.4s ease both;
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .card:nth-child(2) { animation-delay: 0.05s; }
+  .card:nth-child(3) { animation-delay: 0.10s; }
+  .card:nth-child(4) { animation-delay: 0.15s; }
+  .card:nth-child(5) { animation-delay: 0.20s; }
+
+  .section-title {
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── BODY STATS ── */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  @media (min-width: 500px) {
+    .stats-grid { grid-template-columns: 1fr 1fr 1fr 1fr; }
+  }
+
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .input-group label {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .input-group label .lbl-icon { font-size: 1rem; }
+
+  .input-wrap {
+    position: relative;
+  }
+
+  .input-wrap input {
+    width: 100%;
+    padding: 11px 14px;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text);
+    background: #faf8f6;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    outline: none;
+  }
+
+  .input-wrap input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(232,93,38,0.12);
+    background: #fff;
+  }
+
+  .input-unit {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--muted);
+    pointer-events: none;
+  }
+
+  /* ── GENDER & ACTIVITY BUTTONS ── */
+  .btn-group {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .toggle-btn {
+    flex: 1;
+    min-width: 100px;
+    padding: 11px 10px;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    background: #faf8f6;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  .toggle-btn .btn-icon {
+    font-size: 1.3rem;
+    display: block;
+    line-height: 1;
+  }
+
+  .toggle-btn:hover {
+    border-color: var(--accent2);
+    background: #fff;
+    transform: translateY(-1px);
+  }
+
+  .toggle-btn.active {
+    border-color: var(--accent);
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(232,93,38,0.3);
+    transform: translateY(-1px);
+  }
+
+  .activity-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+  }
+
+  @media (min-width: 600px) {
+    .activity-grid { grid-template-columns: repeat(5, 1fr); }
+  }
+
+  .act-btn {
+    padding: 12px 8px;
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    background: #faf8f6;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  .act-btn .btn-icon {
+    font-size: 1.6rem;
+    display: block;
+    margin-bottom: 4px;
+  }
+
+  .act-btn:hover {
+    border-color: var(--accent2);
+    background: #fff;
+    transform: translateY(-2px);
+  }
+
+  .act-btn.active {
+    border-color: var(--accent3);
+    background: linear-gradient(135deg, var(--accent3) 0%, #52b6ab 100%);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(42,157,143,0.3);
+    transform: translateY(-2px);
+  }
+
+  /* ── GOAL BUTTONS ── */
+  .goal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+  }
+
+  .goal-btn {
+    padding: 14px 8px;
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    background: #faf8f6;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+  }
+
+  .goal-btn .btn-icon {
+    font-size: 1.8rem;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .goal-btn:hover { transform: translateY(-2px); border-color: var(--accent2); background: #fff; }
+
+  .goal-btn.active-lose {
+    border-color: #e63946;
+    background: linear-gradient(135deg, #e63946 0%, #ff6b6b 100%);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(230,57,70,0.3);
+    transform: translateY(-2px);
+  }
+
+  .goal-btn.active-maintain {
+    border-color: var(--accent);
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(232,93,38,0.3);
+    transform: translateY(-2px);
+  }
+
+  .goal-btn.active-gain {
+    border-color: #2a9d8f;
+    background: linear-gradient(135deg, #2a9d8f 0%, #52b6ab 100%);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(42,157,143,0.3);
+    transform: translateY(-2px);
+  }
+
+  /* ── CALC BUTTON ── */
+  .calc-btn {
+    width: 100%;
+    padding: 18px;
+    border: none;
+    border-radius: 16px;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 900;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 6px 24px rgba(232,93,38,0.35);
+  }
+
+  .calc-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 32px rgba(232,93,38,0.45);
+  }
+
+  .calc-btn:active { transform: translateY(0); }
+
+  .calc-btn .btn-icon { font-size: 1.4rem; }
+
+  /* ── RESULTS ── */
+  #results {
+    display: none;
+  }
+
+  #results.visible {
+    display: block;
+    animation: slideUp 0.5s ease both;
+  }
+
+  .result-hero {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+    border-radius: 18px;
+    padding: 28px 24px;
+    text-align: center;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(232,93,38,0.3);
+  }
+
+  .result-hero::before {
+    content: '';
+    position: absolute;
+    top: -30px; right: -30px;
+    width: 120px; height: 120px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+  }
+
+  .result-hero::after {
+    content: '';
+    position: absolute;
+    bottom: -20px; left: 20px;
+    width: 80px; height: 80px;
+    background: rgba(255,255,255,0.07);
+    border-radius: 50%;
+  }
+
+  .result-label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.8);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+    position: relative; z-index: 1;
+  }
+
+  .result-kcal {
+    font-size: 3.8rem;
+    font-weight: 900;
+    color: #fff;
+    line-height: 1;
+    position: relative; z-index: 1;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+
+  .result-unit {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.8);
+    margin-left: 4px;
+  }
+
+  .result-sub {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.75);
+    margin-top: 6px;
+    position: relative; z-index: 1;
+  }
+
+  /* Macros */
+  .macros-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .macro-card {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: 16px 12px;
+    text-align: center;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+  }
+
+  .macro-icon { font-size: 1.6rem; margin-bottom: 4px; }
+
+  .macro-name {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  .macro-val {
+    font-size: 1.4rem;
+    font-weight: 900;
+    color: var(--text);
+    line-height: 1.1;
+  }
+
+  .macro-unit {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--muted);
+  }
+
+  /* Range cards */
+  .range-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+
+  .range-card {
+    border-radius: 14px;
+    padding: 14px 10px;
+    text-align: center;
+  }
+
+  .range-card.lose  { background: rgba(230,57,70,0.08); border: 1.5px solid rgba(230,57,70,0.25); }
+  .range-card.maint { background: rgba(232,93,38,0.08); border: 1.5px solid rgba(232,93,38,0.25); }
+  .range-card.gain  { background: rgba(42,157,143,0.08); border: 1.5px solid rgba(42,157,143,0.25); }
+
+  .range-icon { font-size: 1.4rem; margin-bottom: 4px; }
+
+  .range-label {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin-bottom: 2px;
+  }
+
+  .range-card.lose  .range-label { color: #e63946; }
+  .range-card.maint .range-label { color: var(--accent); }
+  .range-card.gain  .range-label { color: #2a9d8f; }
+
+  .range-val {
+    font-size: 1.15rem;
+    font-weight: 900;
+    color: var(--text);
+  }
+
+  .range-unit {
+    font-size: 0.68rem;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  /* BMI */
+  .bmi-bar-wrap {
+    margin-top: 8px;
+  }
+
+  .bmi-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+  }
+
+  .bmi-value-big {
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--text);
+  }
+
+  .bmi-status {
+    font-size: 0.8rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+
+  .bmi-bar-track {
+    height: 12px;
+    border-radius: 6px;
+    background: linear-gradient(90deg,
+      #2196F3 0%, #2196F3 25%,
+      #4CAF50 25%, #4CAF50 50%,
+      #FF9800 50%, #FF9800 75%,
+      #f44336 75%, #f44336 100%
+    );
+    position: relative;
+    overflow: visible;
+  }
+
+  .bmi-pointer {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border: 3px solid var(--text);
+    border-radius: 50%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    transition: left 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .bmi-ranges {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    font-size: 0.62rem;
+    font-weight: 700;
+    color: var(--muted);
+  }
+
+  /* Progress ring */
+  .progress-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .ring-wrap {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .ring-wrap svg { transform: rotate(-90deg); }
+
+  .ring-center {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .ring-num { font-size: 1.3rem; font-weight: 900; color: var(--text); line-height: 1; }
+  .ring-lbl { font-size: 0.6rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; }
+
+  .macro-legend { flex: 1; }
+
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+  }
+
+  .legend-dot {
+    width: 12px; height: 12px;
+    border-radius: 3px;
+    flex-shrink: 0;
+  }
+
+  .legend-name {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text);
+    flex: 1;
+  }
+
+  .legend-pct {
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--muted);
+  }
+
+  /* Error */
+  .error-msg {
+    display: none;
+    background: rgba(230,57,70,0.08);
+    border: 1.5px solid rgba(230,57,70,0.3);
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #e63946;
+    margin-top: 8px;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .error-msg.visible { display: flex; }
+
+  /* Reset btn */
+  .reset-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: none;
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 8px 16px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    margin: 0 auto;
+  }
+
+  .reset-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+
+  /* Watermark */
+  .watermark {
+    text-align: center;
+    padding: 8px;
+    font-size: 0.72rem;
+    color: var(--muted);
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-top">
+      <span class="logo-icon">🔥</span>
+      <h1>Калорийн Тооцоолуур</h1>
+    </div>
+    <div class="header-sub">Биеийн байдлаасаа хамаарсан өдрийн хэрэгцээт калорийг тооцоол</div>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- BODY STATS -->
+  <div class="card">
+    <div class="section-title">👤 Биеийн үзүүлэлт</div>
+    <div class="stats-grid">
+      <div class="input-group">
+        <label><span class="lbl-icon">📅</span> Нас</label>
+        <div class="input-wrap">
+          <input type="number" id="age" placeholder="25" min="10" max="100">
+          <span class="input-unit">нас</span>
+        </div>
+      </div>
+      <div class="input-group">
+        <label><span class="lbl-icon">⚖️</span> Жин</label>
+        <div class="input-wrap">
+          <input type="number" id="weight" placeholder="70" min="20" max="300">
+          <span class="input-unit">кг</span>
+        </div>
+      </div>
+      <div class="input-group">
+        <label><span class="lbl-icon">📏</span> Өндөр</label>
+        <div class="input-wrap">
+          <input type="number" id="height" placeholder="170" min="100" max="250">
+          <span class="input-unit">см</span>
+        </div>
+      </div>
+      <div class="input-group" style="grid-column: span 1;">
+        <label><span class="lbl-icon">🎯</span> Хүссэн жин</label>
+        <div class="input-wrap">
+          <input type="number" id="goalWeight" placeholder="65" min="20" max="300">
+          <span class="input-unit">кг</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GENDER -->
+  <div class="card">
+    <div class="section-title">⚧ Хүйс</div>
+    <div class="btn-group">
+      <button class="toggle-btn active" onclick="selectGender('male', this)">
+        <span class="btn-icon">👨</span> Эрэгтэй
+      </button>
+      <button class="toggle-btn" onclick="selectGender('female', this)">
+        <span class="btn-icon">👩</span> Эмэгтэй
+      </button>
+    </div>
+  </div>
+
+  <!-- ACTIVITY -->
+  <div class="card">
+    <div class="section-title">🏃 Идэвхжлийн түвшин</div>
+    <div class="activity-grid">
+      <button class="act-btn" onclick="selectActivity(1.2, this)">
+        <span class="btn-icon">🛋️</span>
+        Суугаа
+        <br><span style="font-size:0.65rem; opacity:0.7">Дасгал бараг хийдэггүй</span>
+      </button>
+      <button class="act-btn active" onclick="selectActivity(1.375, this)">
+        <span class="btn-icon">🚶</span>
+        Бага зэрэг
+        <br><span style="font-size:0.65rem; opacity:0.7">7 хоногт 1-3 удаа</span>
+      </button>
+      <button class="act-btn" onclick="selectActivity(1.55, this)">
+        <span class="btn-icon">🏋️</span>
+        Дунд зэрэг
+        <br><span style="font-size:0.65rem; opacity:0.7">7 хоногт 3-5 удаа</span>
+      </button>
+      <button class="act-btn" onclick="selectActivity(1.725, this)">
+        <span class="btn-icon">🏊</span>
+        Эрчимтэй
+        <br><span style="font-size:0.65rem; opacity:0.7">7 хоногт 6-7 удаа</span>
+      </button>
+      <button class="act-btn" onclick="selectActivity(1.9, this)">
+        <span class="btn-icon">🏆</span>
+        Маш эрчимтэй
+        <br><span style="font-size:0.65rem; opacity:0.7">Мэргэжлийн тамирчин</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- GOAL -->
+  <div class="card">
+    <div class="section-title">🎯 Зорилго</div>
+    <div class="goal-grid">
+      <button class="goal-btn" onclick="selectGoal('lose', this)">
+        <span class="btn-icon">📉</span>
+        Жин хасах
+      </button>
+      <button class="goal-btn active-maintain" onclick="selectGoal('maintain', this)">
+        <span class="btn-icon">⚖️</span>
+        Жин хадгалах
+      </button>
+      <button class="goal-btn" onclick="selectGoal('gain', this)">
+        <span class="btn-icon">📈</span>
+        Жин нэмэх
+      </button>
+    </div>
+  </div>
+
+  <!-- CALCULATE BUTTON -->
+  <div>
+    <button class="calc-btn" onclick="calculate()">
+      <span class="btn-icon">🔢</span>
+      КАЛОРИ ТООЦООЛ
+    </button>
+    <div class="error-msg" id="errorMsg">
+      <span>⚠️</span>
+      <span id="errorText">Бүх талбарыг бөглөнө үү</span>
+    </div>
+  </div>
+
+  <!-- RESULTS -->
+  <div id="results">
+
+    <!-- HERO -->
+    <div class="result-hero">
+      <div class="result-label">🔥 Өдрийн хэрэгцээт калори</div>
+      <div class="result-kcal">
+        <span id="tdeeVal">—</span>
+        <span class="result-unit">ккал</span>
+      </div>
+      <div class="result-sub" id="tdeeDesc">—</div>
+    </div>
+
+    <!-- MACROS -->
+    <div class="card" style="margin-bottom:0;">
+      <div class="section-title">🥗 Өдрийн макро тэжээл</div>
+      <div class="macros-grid">
+        <div class="macro-card">
+          <div class="macro-icon">🍗</div>
+          <div class="macro-name">Уураг</div>
+          <div class="macro-val"><span id="proteinG">—</span><span class="macro-unit">г</span></div>
+        </div>
+        <div class="macro-card">
+          <div class="macro-icon">🍚</div>
+          <div class="macro-name">Нүүрс</div>
+          <div class="macro-val"><span id="carbsG">—</span><span class="macro-unit">г</span></div>
+        </div>
+        <div class="macro-card">
+          <div class="macro-icon">🥑</div>
+          <div class="macro-name">Тос</div>
+          <div class="macro-val"><span id="fatG">—</span><span class="macro-unit">г</span></div>
+        </div>
+      </div>
+
+      <!-- Donut chart -->
+      <div class="progress-section" style="margin-top:16px;">
+        <div class="ring-wrap">
+          <svg width="110" height="110" viewBox="0 0 110 110">
+            <circle cx="55" cy="55" r="42" fill="none" stroke="#f0ece8" stroke-width="14"/>
+            <circle id="ringFat"     cx="55" cy="55" r="42" fill="none" stroke="#f4a261" stroke-width="14" stroke-dasharray="0 264" stroke-linecap="round"/>
+            <circle id="ringCarbs"   cx="55" cy="55" r="42" fill="none" stroke="#2a9d8f" stroke-width="14" stroke-dasharray="0 264" stroke-linecap="round"/>
+            <circle id="ringProtein" cx="55" cy="55" r="42" fill="none" stroke="#e85d26" stroke-width="14" stroke-dasharray="0 264" stroke-linecap="round"/>
+          </svg>
+          <div class="ring-center">
+            <div class="ring-num" id="ringKcal">—</div>
+            <div class="ring-lbl">ккал</div>
+          </div>
+        </div>
+        <div class="macro-legend">
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#e85d26;"></div>
+            <span class="legend-name">🍗 Уураг</span>
+            <span class="legend-pct" id="proteinPct">—</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#2a9d8f;"></div>
+            <span class="legend-name">🍚 Нүүрсус</span>
+            <span class="legend-pct" id="carbsPct">—</span>
+          </div>
+          <div class="legend-item">
+            <div class="legend-dot" style="background:#f4a261;"></div>
+            <span class="legend-name">🥑 Тос</span>
+            <span class="legend-pct" id="fatPct">—</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RANGES -->
+    <div class="card" style="margin-bottom:0;">
+      <div class="section-title">📊 Зорилготой харьцуулбал</div>
+      <div class="range-grid">
+        <div class="range-card lose">
+          <div class="range-icon">📉</div>
+          <div class="range-label">Жин хасах</div>
+          <div class="range-val"><span id="loseVal">—</span><span class="range-unit"> ккал</span></div>
+        </div>
+        <div class="range-card maint">
+          <div class="range-icon">⚖️</div>
+          <div class="range-label">Хадгалах</div>
+          <div class="range-val"><span id="maintVal">—</span><span class="range-unit"> ккал</span></div>
+        </div>
+        <div class="range-card gain">
+          <div class="range-icon">📈</div>
+          <div class="range-label">Жин нэмэх</div>
+          <div class="range-val"><span id="gainVal">—</span><span class="range-unit"> ккал</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BMI -->
+    <div class="card" style="margin-bottom:0;">
+      <div class="section-title">📐 Биеийн жингийн индекс (BMI)</div>
+      <div class="bmi-bar-wrap">
+        <div class="bmi-label-row">
+          <div>
+            <div class="bmi-value-big" id="bmiVal">—</div>
+          </div>
+          <div class="bmi-status" id="bmiStatus">—</div>
+        </div>
+        <div class="bmi-bar-track">
+          <div class="bmi-pointer" id="bmiPointer" style="left:0%;"></div>
+        </div>
+        <div class="bmi-ranges">
+          <span>Туранхай<br>&lt;18.5</span>
+          <span>Хэвийн<br>18.5–25</span>
+          <span>Илүүдэл<br>25–30</span>
+          <span>Тарган<br>&gt;30</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- IDEAL WEIGHT -->
+    <div class="card" style="margin-bottom:0;">
+      <div class="section-title">🏆 Зөвлөмж</div>
+      <div id="adviceText" style="font-size:0.9rem; line-height:1.7; color:var(--muted); font-weight:600;"></div>
+    </div>
+
+    <button class="reset-btn" onclick="resetAll()">🔄 Дахин тооцоол</button>
+  </div>
+
+  <div class="watermark">Mifflin-St Jeor томьёо ашигласан · 2025</div>
+
+</div>
+
+<script>
+  let gender = 'male';
+  let activityFactor = 1.375;
+  let goal = 'maintain';
+
+  function selectGender(g, btn) {
+    gender = g;
+    document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function selectActivity(f, btn) {
+    activityFactor = f;
+    document.querySelectorAll('.act-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+
+  function selectGoal(g, btn) {
+    goal = g;
+    document.querySelectorAll('.goal-btn').forEach(b => {
+      b.classList.remove('active-lose','active-maintain','active-gain');
+    });
+    btn.classList.add('active-' + g);
+  }
+
+  function showError(msg) {
+    const el = document.getElementById('errorMsg');
+    document.getElementById('errorText').textContent = msg;
+    el.classList.add('visible');
+    setTimeout(() => el.classList.remove('visible'), 3500);
+  }
+
+  function calculate() {
+    const age    = parseFloat(document.getElementById('age').value);
+    const weight = parseFloat(document.getElementById('weight').value);
+    const height = parseFloat(document.getElementById('height').value);
+    const goalW  = parseFloat(document.getElementById('goalWeight').value);
+
+    if (!age || !weight || !height) {
+      showError('⚠️ Нас, жин, өндрөө оруулна уу!');
+      return;
+    }
+    if (age < 10 || age > 100) { showError('Нас 10–100 хооронд байна уу!'); return; }
+    if (weight < 20 || weight > 300) { showError('Жин 20–300 кг хооронд байна уу!'); return; }
+    if (height < 100 || height > 250) { showError('Өндөр 100–250 см хооронд байна уу!'); return; }
+
+    // Mifflin-St Jeor BMR
+    let bmr;
+    if (gender === 'male') {
+      bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+    } else {
+      bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+    }
+
+    const tdee = Math.round(bmr * activityFactor);
+
+    // Goal adjustments
+    const lose     = Math.round(tdee * 0.80);  // -20%
+    const maintain = tdee;
+    const gain     = Math.round(tdee * 1.15);  // +15%
+
+    let targetKcal;
+    let tdeeDesc;
+    if (goal === 'lose')     { targetKcal = lose;     tdeeDesc = 'Жин хасах — TDEE-ийн 80%'; }
+    else if (goal === 'gain'){ targetKcal = gain;     tdeeDesc = 'Жин нэмэх — TDEE-ийн 115%'; }
+    else                     { targetKcal = maintain; tdeeDesc = 'Жин хадгалах — таны TDEE'; }
+
+    // Macros (protein 30%, carbs 45%, fat 25%)
+    const proteinKcal = Math.round(targetKcal * 0.30);
+    const carbsKcal   = Math.round(targetKcal * 0.45);
+    const fatKcal     = Math.round(targetKcal * 0.25);
+    const proteinG = Math.round(proteinKcal / 4);
+    const carbsG   = Math.round(carbsKcal   / 4);
+    const fatG     = Math.round(fatKcal     / 9);
+
+    // BMI
+    const heightM = height / 100;
+    const bmi = (weight / (heightM * heightM)).toFixed(1);
+    let bmiLabel, bmiColor;
+    if      (bmi < 18.5) { bmiLabel = '😟 Туранхай';   bmiColor = '#2196F3'; }
+    else if (bmi < 25)   { bmiLabel = '✅ Хэвийн';      bmiColor = '#4CAF50'; }
+    else if (bmi < 30)   { bmiLabel = '⚠️ Илүүдэл жин'; bmiColor = '#FF9800'; }
+    else                  { bmiLabel = '🚨 Тарган';      bmiColor = '#f44336'; }
+
+    // BMI pointer position (clamp 15–40 range → 0–100%)
+    const bmiPct = Math.min(100, Math.max(0, ((bmi - 15) / 25) * 100));
+
+    // Update DOM
+    document.getElementById('tdeeVal').textContent  = targetKcal.toLocaleString();
+    document.getElementById('tdeeDesc').textContent = tdeeDesc;
+
+    document.getElementById('proteinG').textContent = proteinG;
+    document.getElementById('carbsG').textContent   = carbsG;
+    document.getElementById('fatG').textContent     = fatG;
+
+    document.getElementById('proteinPct').textContent = '30%';
+    document.getElementById('carbsPct').textContent   = '45%';
+    document.getElementById('fatPct').textContent     = '25%';
+    document.getElementById('ringKcal').textContent   = targetKcal.toLocaleString();
+
+    document.getElementById('loseVal').textContent  = lose.toLocaleString();
+    document.getElementById('maintVal').textContent = maintain.toLocaleString();
+    document.getElementById('gainVal').textContent  = gain.toLocaleString();
+
+    document.getElementById('bmiVal').textContent    = bmi;
+    const bmiStatusEl = document.getElementById('bmiStatus');
+    bmiStatusEl.textContent = bmiLabel;
+    bmiStatusEl.style.background = bmiColor + '22';
+    bmiStatusEl.style.color      = bmiColor;
+    bmiStatusEl.style.border     = `1.5px solid ${bmiColor}55`;
+    bmiStatusEl.style.borderRadius = '20px';
+    bmiStatusEl.style.padding = '4px 12px';
+
+    setTimeout(() => {
+      document.getElementById('bmiPointer').style.left = bmiPct + '%';
+    }, 100);
+
+    // Donut chart (circumference = 2πr = 2*3.14159*42 ≈ 263.9)
+    const C = 263.9;
+    const proteinDash = (0.30 * C).toFixed(1);
+    const carbsDash   = (0.45 * C).toFixed(1);
+    const fatDash     = (0.25 * C).toFixed(1);
+
+    // Stacked offsets
+    const rProtein = document.getElementById('ringProtein');
+    const rCarbs   = document.getElementById('ringCarbs');
+    const rFat     = document.getElementById('ringFat');
+
+    rProtein.style.strokeDasharray = `0 ${C}`;
+    rCarbs.style.strokeDasharray   = `0 ${C}`;
+    rFat.style.strokeDasharray     = `0 ${C}`;
+
+    setTimeout(() => {
+      rProtein.style.transition = 'stroke-dasharray 0.8s ease';
+      rProtein.style.strokeDasharray = `${proteinDash} ${C}`;
+      rProtein.style.strokeDashoffset = 0;
+
+      rCarbs.style.transition = 'stroke-dasharray 0.8s ease 0.15s';
+      rCarbs.style.strokeDasharray = `${carbsDash} ${C}`;
+      rCarbs.style.strokeDashoffset = -parseFloat(proteinDash);
+
+      rFat.style.transition = 'stroke-dasharray 0.8s ease 0.3s';
+      rFat.style.strokeDasharray = `${fatDash} ${C}`;
+      rFat.style.strokeDashoffset = -(parseFloat(proteinDash) + parseFloat(carbsDash));
+    }, 50);
+
+    // Advice
+    let advice = `<b>🔬 Таны үндсэн солилцооны хурд (BMR):</b> ${Math.round(bmr).toLocaleString()} ккал/өдөр<br><br>`;
+
+    if (!isNaN(goalW)) {
+      const diff = goalW - weight;
+      if (Math.abs(diff) < 1) {
+        advice += `🎯 Та аль хэдийн хүссэн жиндээ хүрсэн байна! Жингээ хадгалахад ${maintain.toLocaleString()} ккал/өдөр хэрэглэнэ.<br><br>`;
+      } else if (diff < 0) {
+        const kcalDeficit = Math.abs(diff) * 7700;
+        const weeks = Math.ceil(kcalDeficit / (tdee * 0.20 * 7));
+        advice += `📉 <b>${Math.abs(diff)} кг хасахад</b> ойролцоогоор <b>${weeks} долоо хоног</b> шаардлагатай (7 хоногт 0.5–1 кг). Өдөрт ${lose.toLocaleString()} ккал хэрэглэж, дасгал хийнэ үү.<br><br>`;
+      } else {
+        const kcalSurplus = diff * 7700;
+        const weeks = Math.ceil(kcalSurplus / (tdee * 0.15 * 7));
+        advice += `📈 <b>${diff} кг нэмэхэд</b> ойролцоогоор <b>${weeks} долоо хоног</b> шаардлагатай (7 хоногт 0.25–0.5 кг). Өдөрт ${gain.toLocaleString()} ккал хэрэглэж, дасгал хийнэ үү.<br><br>`;
+      }
+    }
+
+    const idealMin = gender === 'male'
+      ? Math.round(22 * heightM * heightM)
+      : Math.round(21 * heightM * heightM);
+    const idealMax = gender === 'male'
+      ? Math.round(24 * heightM * heightM)
+      : Math.round(23 * heightM * heightM);
+
+    advice += `💡 <b>Хэвийн жингийн хүрээ:</b> ${idealMin}–${idealMax} кг (BMI 21–24)`;
+
+    document.getElementById('adviceText').innerHTML = advice;
+
+    // Show results
+    document.getElementById('results').classList.add('visible');
+    setTimeout(() => {
+      document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 100);
+  }
+
+  function resetAll() {
+    document.getElementById('results').classList.remove('visible');
+    ['age','weight','height','goalWeight'].forEach(id => {
+      document.getElementById(id).value = '';
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+
+  // Enter key
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter') calculate();
+  });
+
+</script>
+
+</body>
+</html>
